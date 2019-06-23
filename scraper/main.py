@@ -17,8 +17,12 @@ def print_version(ctx, _, value):
 
 
 @click.command()
-@click.option("--src-email", required=True, help="Email address to send documents from")
-@click.option("--dst-email", required=True, help="Email address to send documents to")
+@click.option(
+    "--src-email",
+    default="omstrumpf.auto@gmail.com",
+    help="Email address to send documents from",
+)
+@click.option("--dst-email", help="Email address to send documents to")
 @click.option(
     "--credentials", default="token.pickle", help="File with gmail credentials"
 )
@@ -45,7 +49,8 @@ def scrape(
         GodsAreBastards(state.for_series(GodsAreBastards)),
     ]
 
-    mailer = Mailer(credentials, src_email, dst_email)
+    if not dry_run:
+        mailer = Mailer(credentials, src_email, dst_email)
 
     for s in series:
         print(f"Processing series: {s.title()}...", end="")
