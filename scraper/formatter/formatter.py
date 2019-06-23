@@ -1,5 +1,3 @@
-import html
-
 from scraper.chapter import Chapter
 
 
