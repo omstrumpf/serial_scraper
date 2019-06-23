@@ -32,7 +32,7 @@ class WorthTheCandle(Series):
 
         chapters = []
 
-        for entry in entries:
+        for entry in entries[len(entries) - 10:]:
             link = entry.find("a")
             date = entry.find("span")
             index = int(link.text[: link.text.find(".")])
