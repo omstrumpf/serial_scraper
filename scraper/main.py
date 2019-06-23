@@ -65,8 +65,6 @@ def scrape(
             sys.stdout.flush()
             mailer.send(chapter.title, Formatter.format(chapter))
 
-            time.sleep(10)
-
     state.persist()
 
 
