@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 black = "*"
+lxml = "*"
 
 [packages]
 click = "*"
@@ -15,7 +16,6 @@ google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
 bs4 = "*"
 aiohttp = "*"
-lxml = "*"
 
 [requires]
 python_version = "3.7"
