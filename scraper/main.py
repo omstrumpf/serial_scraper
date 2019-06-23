@@ -1,11 +1,11 @@
 import sys
-import time
 import click
 
 from scraper.formatter import Formatter
 from scraper.mailer import Mailer
 from scraper.series.practical_guide import PracticalGuide
 from scraper.series.worth_the_candle import WorthTheCandle
+from scraper.series.gods_are_bastards import GodsAreBastards
 from scraper.state import State
 
 
@@ -42,6 +42,7 @@ def scrape(
     series = [
         PracticalGuide(state.for_series(PracticalGuide)),
         WorthTheCandle(state.for_series(WorthTheCandle)),
+        GodsAreBastards(state.for_series(GodsAreBastards)),
     ]
 
     mailer = Mailer(credentials, src_email, dst_email)
