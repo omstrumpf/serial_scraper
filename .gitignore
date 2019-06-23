@@ -2,3 +2,4 @@
 *.pyc
 .vscode/
 token.pickle
+state.json

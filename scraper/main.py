@@ -20,7 +20,9 @@ def print_version(ctx, _, value):
 @click.option(
     "--credentials", default="token.pickle", help="File with gmail credentials"
 )
-@click.option("--state", default="state.json", help="File with scraper state")
+@click.option(
+    "--state", "state_file", default="state.json", help="File with scraper state"
+)
 @click.option("--dry-run", is_flag=True, help="Don't send emails")
 @click.option(
     "--version",
@@ -31,7 +33,7 @@ def print_version(ctx, _, value):
     help="Print version info and exit.",
 )
 def scrape(
-    credentials: str, state_file: str, src_email: str, dst_email: str, dry_run: bool
+    src_email: str, dst_email: str, credentials: str, state_file: str, dry_run: bool
 ):
     state = State.load(state_file)
 
@@ -40,15 +42,21 @@ def scrape(
     mailer = Mailer(credentials, src_email, dst_email)
 
     for s in series:
+        print(f"Processing series: {s.title()}...", end="")
+
         chapters = s.scrape()
+
+        if chapters:
+            print(f" found {len(chapters)} new chapters!")
 
         if dry_run:
             continue
 
         for chapter in chapters:
+            print(f"\tSending chapter {chapter.title}                ", end="\r")
             mailer.send(chapter.title, Formatter.format(chapter))
 
-            time.sleep(15)
+            time.sleep(10)
 
     State.store(state_file, state)
 

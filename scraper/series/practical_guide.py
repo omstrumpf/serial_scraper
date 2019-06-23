@@ -12,6 +12,10 @@ SERIES_TITLE = "A Practical Guide to Evil"
 
 
 class PracticalGuide(Series):
+    @staticmethod
+    def title() -> str:
+        return SERIES_TITLE
+
     def scrape(self) -> [Chapter]:
         if "practical-guide" not in self.state:
             self.state["practical-guide"] = {}
@@ -35,4 +39,9 @@ class PracticalGuide(Series):
                 chapters,
             )
 
-        return sorted(chapters)
+        chapters = sorted(chapters)
+
+        if chapters:
+            self.state["practical-guide"]["timestamp"] = chapters[-1].timestamp
+
+        return chapters
