@@ -15,10 +15,12 @@ def print_version(ctx, _, value):
 
 
 @click.command()
-@click.option("--credentials", required=True, help="File with gmail credentials")
-@click.option("--state", required=True, help="File with scraper state")
 @click.option("--src-email", required=True, help="Email address to send documents from")
 @click.option("--dst-email", required=True, help="Email address to send documents to")
+@click.option(
+    "--credentials", default="token.pickle", help="File with gmail credentials"
+)
+@click.option("--state", default="state.json", help="File with scraper state")
 @click.option("--dry-run", is_flag=True, help="Don't send emails")
 @click.option(
     "--version",
