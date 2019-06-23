@@ -5,6 +5,10 @@ from scraper.chapter import Chapter
 
 class Formatter:
     @staticmethod
+    def __escape(text):
+        return "".join(c if ord(c) < 128 else f"&#{ord(c)};" for c in text)
+
+    @staticmethod
     def format(chapter: Chapter) -> str:
         return f"""
         <DOCTYPE html>
@@ -16,7 +20,7 @@ class Formatter:
             <body>
                 <h3>{chapter.title}</h3>
                 <div align="left">
-                {html.escape(chapter.body)}
+                {Formatter.__escape(chapter.body)}
                 </div>
             </body>
         </html>
