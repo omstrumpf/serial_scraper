@@ -1,9 +1,11 @@
+import sys
 import time
 import click
 
 from scraper.formatter import Formatter
 from scraper.mailer import Mailer
 from scraper.series.practical_guide import PracticalGuide
+from scraper.series.worth_the_candle import WorthTheCandle
 from scraper.state import State
 
 
@@ -35,30 +37,37 @@ def print_version(ctx, _, value):
 def scrape(
     src_email: str, dst_email: str, credentials: str, state_file: str, dry_run: bool
 ):
-    state = State.load(state_file)
+    state = State(state_file)
 
-    series = [PracticalGuide(state)]
+    series = [
+        PracticalGuide(state.for_series(PracticalGuide)),
+        WorthTheCandle(state.for_series(WorthTheCandle)),
+    ]
 
     mailer = Mailer(credentials, src_email, dst_email)
 
     for s in series:
         print(f"Processing series: {s.title()}...", end="")
+        sys.stdout.flush()
 
         chapters = s.scrape()
 
         if chapters:
             print(f" found {len(chapters)} new chapters!")
+        else:
+            print(f" up to date.")
 
         if dry_run:
             continue
 
         for chapter in chapters:
             print(f"\tSending chapter {chapter.title}                ", end="\r")
+            sys.stdout.flush()
             mailer.send(chapter.title, Formatter.format(chapter))
 
             time.sleep(10)
 
-    State.store(state_file, state)
+    state.persist()
 
 
 if __name__ == "__main__":

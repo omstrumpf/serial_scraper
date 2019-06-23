@@ -11,6 +11,10 @@ class Series(ABC):
     def title() -> str:
         raise NotImplementedError()
 
+    @abstractstaticmethod
+    def author() -> str:
+        raise NotImplementedError()
+
     @abstractmethod
     def scrape(self) -> [Chapter]:
         raise NotImplementedError()

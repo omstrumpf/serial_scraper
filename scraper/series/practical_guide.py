@@ -6,26 +6,23 @@ from .series import Series
 
 FEED_URL = "https://practicalguidetoevil.wordpress.com/feed/"
 
-AUTHOR = "Erratic Errata"
-
-SERIES_TITLE = "A Practical Guide to Evil"
-
 
 class PracticalGuide(Series):
     @staticmethod
     def title() -> str:
-        return SERIES_TITLE
+        return "A Practical Guide to Evil"
+
+    @staticmethod
+    def author() -> str:
+        return "Erratic Errata"
 
     def scrape(self) -> [Chapter]:
-        if "practical-guide" not in self.state:
-            self.state["practical-guide"] = {}
-
         feed = feedparser.parse(FEED_URL)
 
         chapters = [
             Chapter(
-                SERIES_TITLE,
-                AUTHOR,
+                PracticalGuide.title(),
+                PracticalGuide.author(),
                 e.title,
                 time.mktime(e.published_parsed),
                 e.content[0].value,
@@ -33,15 +30,12 @@ class PracticalGuide(Series):
             for e in feed.entries
         ]
 
-        if "timestamp" in self.state["practical-guide"]:
-            chapters = filter(
-                lambda x: x.timestamp > self.state["practical-guide"]["timestamp"],
-                chapters,
-            )
+        if "timestamp" in self.state:
+            chapters = filter(lambda x: x.timestamp > self.state["timestamp"], chapters)
 
         chapters = sorted(chapters)
 
         if chapters:
-            self.state["practical-guide"]["timestamp"] = chapters[-1].timestamp
+            self.state["timestamp"] = chapters[-1].timestamp
 
         return chapters
