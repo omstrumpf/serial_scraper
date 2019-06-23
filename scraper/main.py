@@ -33,7 +33,6 @@ def scrape(credentials: str, src_email: str, dst_email: str, dry_run: bool):
     mailer = Mailer(credentials, src_email, dst_email)
 
     for s in series:
-        breakpoint()
         chapters = s.scrape()
 
         if dry_run:

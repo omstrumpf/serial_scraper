@@ -139,7 +139,10 @@ disable=print-statement,
         deprecated-sys-function,
         exception-escape,
         comprehension-escape,
-        missing-docstring
+        missing-docstring,
+        too-few-public-methods,
+        too-many-arguments,
+        bad-continuation
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -418,6 +421,8 @@ function-naming-style=snake_case
 good-names=i,
            j,
            k,
+           s,
+           f,
            ex,
            Run,
            _

@@ -6,6 +6,7 @@ ADD Pipfile Pipfile
 ADD Pipfile Pipfile.lock
 ADD entry.sh
 ADD crontab crontab
+ADD token.pickle token.pickle
 
 # Install Dependencies
 RUN apk --no-cache add bash python3
