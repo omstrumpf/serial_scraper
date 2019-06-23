@@ -3,6 +3,7 @@ import os
 
 STATE_FILE = "state.json"
 
+
 class State:
     @staticmethod
     def load(state_path: str) -> {}:

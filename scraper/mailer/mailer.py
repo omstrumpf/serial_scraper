@@ -57,4 +57,6 @@ class Mailer:
         }
 
         service = build("gmail", "v1", credentials=self.creds)
-        service.users().messages().send(userId="me", body=mail).execute() # pylint: disable=no-member
+        service.users().messages().send(
+            userId="me", body=mail
+        ).execute()  # pylint: disable=no-member

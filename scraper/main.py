@@ -28,7 +28,9 @@ def print_version(ctx, _, value):
     is_eager=True,
     help="Print version info and exit.",
 )
-def scrape(credentials: str, state_file: str, src_email: str, dst_email: str, dry_run: bool):
+def scrape(
+    credentials: str, state_file: str, src_email: str, dst_email: str, dry_run: bool
+):
     state = State.load(state_file)
 
     series = [PracticalGuide(state)]
@@ -47,6 +49,7 @@ def scrape(credentials: str, state_file: str, src_email: str, dst_email: str, dr
             time.sleep(15)
 
     State.store(state_file, state)
+
 
 if __name__ == "__main__":
     scrape()  # pylint: disable=no-value-for-parameter

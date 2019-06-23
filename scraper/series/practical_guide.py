@@ -13,6 +13,9 @@ SERIES_TITLE = "A Practical Guide to Evil"
 
 class PracticalGuide(Series):
     def scrape(self) -> [Chapter]:
+        if "practical-guide" not in self.state:
+            self.state["practical-guide"] = {}
+
         feed = feedparser.parse(FEED_URL)
 
         chapters = [
@@ -26,7 +29,10 @@ class PracticalGuide(Series):
             for e in feed.entries
         ]
 
-        if "timestamp" in self.state:
-            chapters = filter(lambda x: x.timestamp > self.state["timestamp"], chapters)
+        if "timestamp" in self.state["practical-guide"]:
+            chapters = filter(
+                lambda x: x.timestamp > self.state["practical-guide"]["timestamp"],
+                chapters,
+            )
 
         return sorted(chapters)
