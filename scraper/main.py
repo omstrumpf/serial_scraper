@@ -46,8 +46,8 @@ def scrape(
 
     series = [
         PracticalGuide(state.for_series(PracticalGuide)),
-        WorthTheCandle(state.for_series(WorthTheCandle)),
         GodsAreBastards(state.for_series(GodsAreBastards)),
+        WorthTheCandle(state.for_series(WorthTheCandle)),
     ]
 
     if not dry_run:
