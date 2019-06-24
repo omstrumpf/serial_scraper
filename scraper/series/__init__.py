@@ -1,1 +1,1 @@
-from .series import Series
+from .series import Series, ScrapeFailedException

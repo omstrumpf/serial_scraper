@@ -3,6 +3,7 @@ import click
 
 from scraper.formatter import Formatter
 from scraper.mailer import Mailer
+from scraper.series import ScrapeFailedException
 from scraper.series.practical_guide import PracticalGuide
 from scraper.series.worth_the_candle import WorthTheCandle
 from scraper.series.gods_are_bastards import GodsAreBastards
@@ -56,7 +57,11 @@ def scrape(
         print(f"Processing series: {s.title()}...", end="")
         sys.stdout.flush()
 
-        chapters = s.scrape()
+        try:
+            chapters = s.scrape()
+        except ScrapeFailedException:
+            print(f" scrape failed.")
+            continue
 
         if chapters:
             print(f" found {len(chapters)} new chapters!")

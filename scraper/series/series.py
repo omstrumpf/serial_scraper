@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod, abstractstaticmethod
 from scraper.chapter import Chapter
 
 
+class ScrapeFailedException(Exception):
+    pass
+
+
 class Series(ABC):
     def __init__(self, state: {}):
         self.state = state
