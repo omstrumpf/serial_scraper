@@ -7,13 +7,14 @@ from scraper.series import ScrapeFailedException
 from scraper.series.practical_guide import PracticalGuide
 from scraper.series.worth_the_candle import WorthTheCandle
 from scraper.series.gods_are_bastards import GodsAreBastards
+from scraper.series.money_stuff import MoneyStuff
 from scraper.state import State
 
 
 def print_version(ctx, _, value):
     if not value or ctx.resilient_parsing:
         return
-    click.echo("SerialScraper Version 1.0")
+    click.echo("SerialScraper Version 1.1")
     ctx.exit()
 
 
@@ -44,14 +45,14 @@ def scrape(
 ):
     state = State(state_file)
 
+    mailer = Mailer(credentials, src_email, dst_email)
+
     series = [
         PracticalGuide(state.for_series(PracticalGuide)),
         GodsAreBastards(state.for_series(GodsAreBastards)),
         WorthTheCandle(state.for_series(WorthTheCandle)),
+        MoneyStuff(state.for_series(MoneyStuff), mailer),
     ]
-
-    if not dry_run:
-        mailer = Mailer(credentials, src_email, dst_email)
 
     for s in series:
         print(f"Processing series: {s.title()}...", end="")

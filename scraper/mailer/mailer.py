@@ -31,10 +31,22 @@ class Mailer:
 
         return creds
 
+    @staticmethod
+    def subject_from_message(message) -> str:
+        headers = message["payload"]["headers"]
+
+        return [h["value"] for h in headers if h["name"] == "Subject"][0]
+
+    @staticmethod
+    def timestamp_from_message(message) -> int:
+        return int(message["internalDate"])
+
     def __init__(self, token_file, src_address, dst_address):
         self.creds = Mailer.__get_creds(token_file)
         self.src_address = src_address
         self.dst_address = dst_address
+
+        self.service = build("gmail", "v1", credentials=self.creds)
 
     def send(self, subject, body):
         message = MIMEMultipart()
@@ -56,7 +68,29 @@ class Mailer:
             )
         }
 
-        service = build("gmail", "v1", credentials=self.creds)
-        service.users().messages().send(  # pylint: disable=no-member
+        self.service.users().messages().send(  # pylint: disable=no-member
             userId="me", body=mail
         ).execute()
+
+    def list_matching_query(self, query, max_results=10):
+        response = (
+            self.service.users()  # pylint: disable=no-member
+            .messages()
+            .list(userId="me", q=query, maxResults=max_results)
+            .execute()
+        )
+
+        if "messages" in response:
+            return response["messages"]
+
+        return []
+
+    def get_message(self, message_id):
+        message = (
+            self.service.users()  # pylint: disable=no-member
+            .messages()
+            .get(userId="me", id=message_id)
+            .execute()
+        )
+
+        return message
