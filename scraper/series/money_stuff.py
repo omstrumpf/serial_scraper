@@ -29,7 +29,9 @@ class MoneyStuff(Series):
 
         soup = bs4.BeautifulSoup(html, features="lxml")
 
-        return str(soup.find_all("table")[3])
+        results = [str(x) for x in soup.find_all("table")]
+
+        return max(results, key=len)
 
     def _get_message_ids(self) -> [str]:
         messages = self.mailer.list_matching_query(GMAIL_QUERY)
