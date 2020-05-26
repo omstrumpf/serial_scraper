@@ -23,7 +23,7 @@ class GodsAreBastards(Series):
             Chapter(
                 GodsAreBastards.title(),
                 GodsAreBastards.author(),
-                e.title,
+                "The Gods are Bastards: " + e.title,
                 time.mktime(e.published_parsed),
                 e.content[0].value,
             )
