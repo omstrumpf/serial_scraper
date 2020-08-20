@@ -30,6 +30,9 @@ class GodsAreBastards(Series):
             for e in feed.entries
         ]
 
+        # filter out protected chapters
+        chapters = filter(lambda x: "protected" not in x.title.lower(), chapters)
+
         if "timestamp" in self.state:
             chapters = filter(lambda x: x.timestamp > self.state["timestamp"], chapters)
 
