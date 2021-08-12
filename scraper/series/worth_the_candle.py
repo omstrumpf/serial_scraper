@@ -1,6 +1,8 @@
 from datetime import datetime
+from typing import List
 import bs4
 import requests
+
 
 from scraper.chapter import Chapter
 from .series import Series, ScrapeFailedException
@@ -57,7 +59,7 @@ class WorthTheCandle(Series):
 
         return sorted(chapters)
 
-    def scrape(self) -> [Chapter]:
+    def scrape(self) -> List[Chapter]:
         chapters = self.__scrape_new()
 
         if chapters:

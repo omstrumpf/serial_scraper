@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod, abstractstaticmethod
+from typing import List
 
 from scraper.chapter import Chapter
 
@@ -8,7 +9,7 @@ class ScrapeFailedException(Exception):
 
 
 class Series(ABC):
-    def __init__(self, state: {}):
+    def __init__(self, state: dict):
         self.state = state
 
     @abstractstaticmethod
@@ -20,5 +21,5 @@ class Series(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    def scrape(self) -> [Chapter]:
+    def scrape(self) -> List[Chapter]:
         raise NotImplementedError()

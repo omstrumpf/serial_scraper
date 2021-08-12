@@ -1,6 +1,8 @@
 import time
 import feedparser
 
+from typing import List
+
 from scraper.chapter import Chapter
 from .series import Series
 
@@ -16,7 +18,7 @@ class GodsAreBastards(Series):
     def author() -> str:
         return "D. D. Webb"
 
-    def scrape(self) -> [Chapter]:
+    def scrape(self) -> List[Chapter]:
         feed = feedparser.parse(FEED_URL)
 
         chapters = [

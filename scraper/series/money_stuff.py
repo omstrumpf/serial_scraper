@@ -1,6 +1,8 @@
 import base64
 import bs4
 
+from typing import List
+
 from scraper.chapter import Chapter
 from scraper.mailer import Mailer
 from .series import Series
@@ -9,7 +11,7 @@ GMAIL_QUERY = "label:mailing-lists-money-stuff newer_than:14d"
 
 
 class MoneyStuff(Series):
-    def __init__(self, state: {}, mailer: Mailer):
+    def __init__(self, state: dict, mailer: Mailer):
         super().__init__(state)
         self.mailer = mailer
 
@@ -33,7 +35,7 @@ class MoneyStuff(Series):
 
         return max(results, key=len)
 
-    def _get_message_ids(self) -> [str]:
+    def _get_message_ids(self) -> List[str]:
         messages = self.mailer.list_matching_query(GMAIL_QUERY)
 
         return [m["id"] for m in messages]
@@ -47,7 +49,7 @@ class MoneyStuff(Series):
 
         return Chapter(MoneyStuff.title(), MoneyStuff.author(), title, timestamp, body)
 
-    def scrape(self) -> [Chapter]:
+    def scrape(self) -> List[Chapter]:
         message_ids = self._get_message_ids()
 
         chapters = [self._chapter_from_message_id(mid) for mid in message_ids]

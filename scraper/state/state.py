@@ -19,7 +19,7 @@ class State:
     def persist(self):
         open(self.path, "w").write(json.dumps(self.state))
 
-    def for_series(self, series: Series) -> {}:
+    def for_series(self, series: Series) -> dict:
         key = hashlib.md5(series.title().encode("utf-8")).hexdigest()
 
         if key not in self.state:
