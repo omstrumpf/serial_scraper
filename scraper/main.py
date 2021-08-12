@@ -8,6 +8,7 @@ from scraper.series.practical_guide import PracticalGuide
 from scraper.series.worth_the_candle import WorthTheCandle
 from scraper.series.gods_are_bastards import GodsAreBastards
 from scraper.series.money_stuff import MoneyStuff
+from scraper.series.this_used_to_be_about_dungeons import ThisUsedToBeAboutDungeons
 from scraper.state import State
 
 
@@ -52,6 +53,7 @@ def scrape(
         GodsAreBastards(state.for_series(GodsAreBastards)),
         WorthTheCandle(state.for_series(WorthTheCandle)),
         MoneyStuff(state.for_series(MoneyStuff), mailer),
+        ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
     ]
 
     for s in series:
