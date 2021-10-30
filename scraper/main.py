@@ -1,3 +1,4 @@
+from scraper.series.bits_about_money import BitsAboutMoney
 import sys
 import click
 
@@ -54,6 +55,7 @@ def scrape(
         # WorthTheCandle(state.for_series(WorthTheCandle)),
         MoneyStuff(state.for_series(MoneyStuff), mailer),
         ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
+        BitsAboutMoney(state.for_series(BitsAboutMoney), mailer),
     ]
 
     for s in series:
