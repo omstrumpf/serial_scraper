@@ -31,9 +31,17 @@ class BitsAboutMoney(Series):
 
         soup = bs4.BeautifulSoup(html, features="lxml")
 
-        results = [str(x) for x in soup.find_all("table")]
+        largest_table = max([x for x in soup.find_all("table")], key=len)
 
-        return max(results, key=len)
+        target_table = largest_table
+        for i in range(2):
+            next_table = target_table.find("table")
+            if next_table:
+                target_table = next_table
+            else:
+                break
+
+        return str(target_table)
 
     def _get_message_ids(self) -> List[str]:
         messages = self.mailer.list_matching_query(GMAIL_QUERY)
