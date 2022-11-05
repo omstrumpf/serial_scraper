@@ -10,7 +10,7 @@ ADD crontab crontab
 ADD token.pickle token.pickle
 
 # Install Dependencies
-RUN apk --no-cache add bash python3 py3-lxml
+RUN apk --no-cache add bash python3 py3-pip py3-lxml
 RUN pip3 install --upgrade pip
 RUN pip3 install pipenv
 RUN set -ex && pipenv install --deploy --system
