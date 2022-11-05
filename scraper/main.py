@@ -1,13 +1,11 @@
-from scraper.series.bits_about_money import BitsAboutMoney
 import sys
 import click
+
 
 from scraper.formatter import Formatter
 from scraper.mailer import Mailer
 from scraper.series import ScrapeFailedException
-from scraper.series.practical_guide import PracticalGuide
-from scraper.series.worth_the_candle import WorthTheCandle
-from scraper.series.gods_are_bastards import GodsAreBastards
+from scraper.series.bits_about_money import BitsAboutMoney
 from scraper.series.money_stuff import MoneyStuff
 from scraper.series.this_used_to_be_about_dungeons import ThisUsedToBeAboutDungeons
 from scraper.state import State
@@ -50,8 +48,8 @@ def scrape(
     mailer = Mailer(credentials, src_email, dst_email)
 
     series = [
-        PracticalGuide(state.for_series(PracticalGuide)),
-        GodsAreBastards(state.for_series(GodsAreBastards)),
+        # PracticalGuide(state.for_series(PracticalGuide)),
+        # GodsAreBastards(state.for_series(GodsAreBastards)),
         # WorthTheCandle(state.for_series(WorthTheCandle)),
         MoneyStuff(state.for_series(MoneyStuff), mailer),
         ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
@@ -65,13 +63,13 @@ def scrape(
         try:
             chapters = s.scrape()
         except ScrapeFailedException:
-            print(f" scrape failed.")
+            print(" scrape failed.")
             continue
 
         if chapters:
             print(f" found {len(chapters)} new chapters!")
         else:
-            print(f" up to date.")
+            print(" up to date.")
 
         if dry_run:
             continue
