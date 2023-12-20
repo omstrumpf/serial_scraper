@@ -10,10 +10,19 @@ ADD crontab crontab
 ADD token.pickle token.pickle
 
 # Install Dependencies
-RUN apk --no-cache add bash python3 py3-pip py3-lxml
-RUN pip3 install --upgrade pip
-RUN pip3 install pipenv
+RUN apk add --no-cache --virtual .build-deps gcc libc-dev libxslt-dev
+RUN apk add --no-cache bash python3 py3-pip py3-lxml libxslt
+
+# Set up python venv
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip3 install --no-cache-dir --upgrade pip
+RUN pip3 install --no-cache-dir pipenv lxml
 RUN set -ex && pipenv install --deploy --system
+
+# Remove build dependencies
+RUN apk del .build-deps
 
 # Enable crontab
 RUN /usr/bin/crontab /app/crontab
