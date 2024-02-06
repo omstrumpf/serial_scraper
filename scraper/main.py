@@ -51,8 +51,8 @@ def scrape(
         # PracticalGuide(state.for_series(PracticalGuide)),
         # GodsAreBastards(state.for_series(GodsAreBastards)),
         # WorthTheCandle(state.for_series(WorthTheCandle)),
+        # ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
         MoneyStuff(state.for_series(MoneyStuff), mailer),
-        ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
         BitsAboutMoney(state.for_series(BitsAboutMoney), mailer),
     ]
 
