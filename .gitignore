@@ -3,3 +3,5 @@
 .vscode/
 token.pickle
 state.json
+.venv/
+result
