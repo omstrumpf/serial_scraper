@@ -11,6 +11,7 @@ from .series import Series
 
 FEED_URL = "https://www.royalroad.com/fiction/syndication/45534"
 
+
 class ThisUsedToBeAboutDungeons(Series):
     @staticmethod
     def title() -> str:
@@ -34,7 +35,7 @@ class ThisUsedToBeAboutDungeons(Series):
     def __parse_title(raw_title: str):
         prefix = "This Used to be About Dungeons - "
         if raw_title.startswith(prefix):
-            return raw_title[len(prefix):]
+            return raw_title[len(prefix) :]
 
         return raw_title
 

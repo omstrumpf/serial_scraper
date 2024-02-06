@@ -55,7 +55,9 @@ class BitsAboutMoney(Series):
         timestamp = Mailer.timestamp_from_message(message)
         body = self._parse_body_from_message(message)
 
-        return Chapter(BitsAboutMoney.title(), BitsAboutMoney.author(), title, timestamp, body)
+        return Chapter(
+            BitsAboutMoney.title(), BitsAboutMoney.author(), title, timestamp, body
+        )
 
     def scrape(self) -> List[Chapter]:
         message_ids = self._get_message_ids()
