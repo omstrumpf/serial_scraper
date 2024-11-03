@@ -8,6 +8,7 @@ from scraper.series import ScrapeFailedException
 from scraper.series.bits_about_money import BitsAboutMoney
 from scraper.series.money_stuff import MoneyStuff
 from scraper.series.this_used_to_be_about_dungeons import ThisUsedToBeAboutDungeons
+from scraper.series.pale_lights import PaleLights
 from scraper.state import State
 
 
@@ -54,6 +55,7 @@ def scrape(
         # ThisUsedToBeAboutDungeons(state.for_series(ThisUsedToBeAboutDungeons)),
         MoneyStuff(state.for_series(MoneyStuff), mailer),
         BitsAboutMoney(state.for_series(BitsAboutMoney), mailer),
+        PaleLights(state.for_series(PaleLights)),
     ]
 
     for s in series:
