@@ -9,7 +9,7 @@ from scraper.chapter import Chapter
 from scraper.series import ScrapeFailedException
 from .series import Series
 
-FEED_URL = "https://www.royalroad.com/fiction/syndication/45534"
+FEED_URL = "https://www.royalroad.com/fiction/syndication/81002"
 
 class YearsOfApocalypse(Series):
     @staticmethod
